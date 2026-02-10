@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class franchises(models.Model):
+class franchise(models.Model):
     name=models.CharField(max_length=100)
     short_name=models.CharField(max_length=10)
     founded_year=models.IntegerField()
@@ -14,7 +14,7 @@ class franchises(models.Model):
 
     class Meta:
         db_table='franchises'
-
+        
 
     def __str__(self):
         return f"{self.name}({self.short_name})"

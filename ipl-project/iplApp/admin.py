@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import franchises
+from .models import franchise
 # Register your models here.
 
-admin.site.register(franchises)
+admin.site.register(franchise)
