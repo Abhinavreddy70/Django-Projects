@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class franchise(models.Model):
+class franchises(models.Model):
     name=models.CharField(max_length=100)
     short_name=models.CharField(max_length=10)
     founded_year=models.IntegerField()
