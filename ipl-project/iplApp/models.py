@@ -6,7 +6,7 @@ class franchise(models.Model):
     short_name=models.CharField(max_length=10)
     founded_year=models.IntegerField()
     no_of_trophies=models.IntegerField()
-    logo=models.ImageField(blank=True,null=True)
+    logo=models.ImageField(upload_to='franchise_logos/', blank=True,null=True)
     city=models.CharField(max_length=100)
     owner=models.CharField(max_length=100)
     coach=models.CharField(max_length=100)

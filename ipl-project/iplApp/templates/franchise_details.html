@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ franchise.name }} Details</title>
+
+    <style>
+        body{
+            background:#f5f7fb;
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top:40px;
+        }
+
+        .card{
+            max-width:700px;
+            margin:auto;
+            background:#fff;
+            border-radius:10px;
+            box-shadow:0 8px 25px rgba(0,0,0,0.1);
+            padding:30px 40px;
+            text-align:center;
+        }
+
+        h1{
+            font-size:34px;
+            margin-bottom:10px;
+            font-weight:700;
+        }
+
+        .divider{
+            height:1px;
+            background:#e5e7eb;
+            margin:20px 0;
+        }
+
+        .logo img{
+            width:120px;
+            margin:15px 0 25px 0;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-bottom:20px;
+        }
+
+        td{
+            padding:12px 0;
+            border-bottom:1px solid #eee;
+            font-size:16px;
+        }
+
+        td:first-child{
+            text-align:left;
+            color:#6b7280;
+            font-weight:600;
+        }
+
+        td:last-child{
+            text-align:right;
+            font-weight:700;
+        }
+
+        .trophy{
+            color:#e11d48;
+            font-weight:800;
+        }
+
+        .btn{
+            background:#2563eb;
+            color:white;
+            padding:10px 22px;
+            border-radius:6px;
+            text-decoration:none;
+            display:inline-block;
+            margin-top:10px;
+            font-size:14px;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#1d4ed8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>{{ franchise.name }} 
+        <span style="color:#6b7280;">({{ franchise.short_name }})</span>
+    </h1>
+
+    <div class="divider"></div>
+
+    <div class="logo">
+        {% if franchise.logo %}
+            <img src="{{ franchise.logo.url }}" alt="{{ franchise.name }}">
+        {% endif %}
+    </div>
+
+    <table>
+        <tr>
+            <td>Founded Year</td>
+            <td>{{ franchise.founded_year }}</td>
+        </tr>
+
+        <tr>
+            <td>Number of Trophies</td>
+            <td class="trophy">{{ franchise.no_of_trophies }}</td>
+        </tr>
+
+        <tr>
+            <td>City</td>
+            <td>{{ franchise.city }}</td>
+        </tr>
+
+        <tr>
+            <td>Owner</td>
+            <td>{{ franchise.owner }}</td>
+        </tr>
+
+        <tr>
+            <td>Coach</td>
+            <td>{{ franchise.coach }}</td>
+        </tr>
+    </table>
+
+    <a href="{% url 'franchise_list' %}" class="btn">
+        ← Back to Franchise List
+    </a>
+
+</div>
+
+</body>
+</html>
