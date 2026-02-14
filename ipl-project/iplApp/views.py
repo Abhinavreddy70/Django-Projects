@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import franchise
 # Create your views here.
@@ -61,6 +61,31 @@ def franchise_list(request):
 
 
 def franchise_details(request,id):
-    print('franchise id:',id)
     Franchise = franchise.objects.get(id=id)
     return render(request,'franchise_details.html',{'franchise':Franchise})
+
+def update_franchise(request,id):
+    Franchise=franchise.objects.get(id=id)
+    if request.method=='POST':
+        Franchise.name=request.POST.get('name')
+        Franchise.short_name=request.POST.get('short_name')
+        Franchise.founded_year=request.POST.get('founded_year')
+        Franchise.no_of_trophies=request.POST.get('no_of_trophies')
+        Franchise.city=request.POST.get('city')
+        Franchise.owner=request.POST.get('owner') 
+        Franchise.coach=request.POST.get('coach')  
+        logo=request.FILES.get('logo')
+
+        if request.FILES.get('logo'):
+           Franchise.logo=request.FILES.get('logo')
+        Franchise.save()
+        return redirect('franchise_list')
+    else:
+        return render(request,'update_franchise.html',{'franchise':Franchise})    
+    
+def delete_franchise(request,id):
+    Franchise=franchise.objects.get(id=id)
+
+    if request.method=='POST':
+      Franchise.delete()
+      return redirect('franchise_list')

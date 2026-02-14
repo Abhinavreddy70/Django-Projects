@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Franchise</title>
+   
+</head>
+<style>
+    /* Page background */
+body {
+    margin: 0;
+    padding: 0;
+    background: #f3f5f9;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Center the card */
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Register card */
+.card {
+    background: white;
+    padding: 20px 15px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+/* Title */
+.card h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+/* Labels */
+label {
+    display: block;
+    text-align: left;
+    font-size: 12px;
+    margin: 6px 0 3px;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 12px;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #2b6cff;
+    box-shadow: 0 0 4px rgba(43,108,255,0.3);
+}
+
+/* Register button */
+button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 12px;
+    background: #2b6cff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #1f55d6;
+}
+
+</style>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h2>{{ franchise.name }} -Details</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label>Franchise Name</label>
+            <input type="text" name="name" maxlength="100" required value="{{franchise.name}}">
+
+            <label>Short Name</label>
+            <input type="text" name="short_name" maxlength="10" required value="{{franchise.short_name}}">
+
+            <label>Founded Year</label>
+            <input type="number" name="founded_year" required value="{{franchise.founded_year}}">
+
+            <label>Number of Trophies</label>
+            <input type="number" name="no_of_trophies" required value="{{franchise.no_of_trophies}}">
+
+            <label>City</label>
+            <input type="text" name="city" maxlength="100" required value="{{franchise.city}}">
+
+            <label>Owner</label>
+            <input type="text" name="owner" maxlength="100" required value="{{franchise.owner}}">
+
+            <label>Head Coach</label>
+            <input type="text" name="coach" maxlength="100" required value="{{franchise.coach}}">
+
+            <label>Franchise Logo</label>
+            <input type="file" name="logo" accept="image/*">
+            {% if franchise.logo %}
+                <img src="{{ franchise.logo.url }}" alt="Franchise Logo" style="max-width: 100px; margin-top: 10px;">
+            {% endif %}
+
+            <button type="submit">Update Franchise</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
