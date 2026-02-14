@@ -18,3 +18,22 @@ class franchise(models.Model):
 
     def __str__(self):
         return f"{self.name}({self.short_name})"
+    
+#player models
+
+class player(models.Model):
+    ROLE_CHOICES=[
+        ('Batsman','Batsman'),
+        ('Bowler','Bowler'),
+        ('All-rounder','All-rounder'),
+        ('Wicket-keeper','Wicket-keeper'),
+    ]
+    name=models.CharField(max_length=100)
+    age=models.PositiveBigIntegerField()
+    role=models.CharField(max_length=100 , choices=ROLE_CHOICES)  
+    nationality=models.CharField(max_length=100)
+    Franchise=models.ForeignKey(franchise,on_delete=models.CASCADE,related_name='players')  
+    photo=models.ImageField(upload_to='player_photos/', blank=True,null=True)
+
+    def __str__(self):
+        return f"{self.name}({self.role})"
