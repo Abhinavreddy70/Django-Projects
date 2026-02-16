@@ -21,7 +21,7 @@ class franchise(models.Model):
     
 #player models
 
-class player(models.Model):
+class Player(models.Model):
     ROLE_CHOICES=[
         ('Batsman','Batsman'),
         ('Bowler','Bowler'),
@@ -37,3 +37,6 @@ class player(models.Model):
 
     def __str__(self):
         return f"{self.name}({self.role})"
+
+
+

@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import franchise
+from .models import franchise,Player
+from .forms import PlayerForm
 # Create your views here.
 def home(request):
     return HttpResponse("Welcome to the IPL App Home Page!")
@@ -89,3 +90,44 @@ def delete_franchise(request,id):
     if request.method=='POST':
       Franchise.delete()
       return redirect('franchise_list')
+    
+
+
+def register_player(request):
+   if request.method=='POST':
+       form=PlayerForm(request.POST,request.FILES)
+       if form.is_valid():
+             form.save()
+             return redirect('player_list')
+       else:
+             return HttpResponse("Invalid form data",status=400)
+   else:
+        form=PlayerForm()
+        return render(request,'register_player.html',{'form':form})
+   
+
+def player_list(request):
+    players=Player.objects.all()  
+    return render(request,'player_list.html',{'players':players})
+
+
+def update_player(request,id):
+    player=Player.objects.get(id=id)
+    if request.method=='POST':
+        form=PlayerForm(request.POST,request.FILES,instance=player)
+        if form.is_valid():
+             form.save()
+             return redirect('player_list')
+        else:
+             return HttpResponse("Invalid form data",status=400)
+    else:
+        form=PlayerForm(instance=player)
+        return render(request,'update_player.html',{'form':form})
+
+
+def delete_player(request,id):
+    player=Player.objects.get(id=id)
+
+    if request.method=='POST':
+      player.delete()
+      return HttpResponse('Player deleted successfully')

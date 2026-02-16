@@ -10,4 +10,8 @@ urlpatterns = [
     path('franchise-details/<int:id>/',views.franchise_details,name='franchise_details'),
     path('update-franchise/<int:id>/',views.update_franchise,name='update_franchise'),
     path('delete-franchise/<int:id>/',views.delete_franchise,name='delete_franchise'),
+    path('register-player/',views.register_player,name='register_player'),
+    path('player-list/',views.player_list,name='player_list'),
+    path('update-player/<int:id>/',views.update_player,name='update_player'),
+    path('delete-player/<int:id>/',views.delete_player,name='delete_player'),
 ]
