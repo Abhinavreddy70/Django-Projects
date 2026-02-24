@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import franchise,Player
-from .forms import PlayerForm
+from .models import franchise,Player,stadium
+from .forms import PlayerForm,stadiumForm
 # Create your views here.
 def home(request):
     return HttpResponse("Welcome to the IPL App Home Page!")
@@ -131,3 +131,16 @@ def delete_player(request,id):
     if request.method=='POST':
       player.delete()
       return HttpResponse('Player deleted successfully')
+
+
+
+def register_stadium(request):
+    if request.method=='POST':
+        form=stadiumForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Stadium registered successfully")
+            print()
+    else:  
+        form=stadiumForm()
+    return render(request,'register_stadium.html',{'form':form})
