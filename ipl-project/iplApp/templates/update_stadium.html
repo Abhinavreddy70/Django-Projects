@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Stadium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 12px 8px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 20px 16px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 14px;
+            text-align: center;
+        }
+
+        .header h2 {
+            font-size: 1.5em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 0.8em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .header-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 8px 22px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-wrapper {
+            padding: 20px;
+        }
+
+        form label {
+            display: block;
+            margin: 10px 0 4px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        form input,
+        form select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.9em;
+            margin-bottom: 12px;
+        }
+
+        form button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        form button:hover {
+            background: linear-gradient(135deg, #5663d4 0%, #643f98 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Update Stadium</h2>
+            <a href="{% url 'stadium_list' %}" class="header-btn">← Back to list</a>
+        </div>
+        <div class="form-wrapper">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <label>Name</label>
+                <input type="text" name="name" maxlength="200" required value="{{ stadium.name }}">
+
+                <label>City</label>
+                <input type="text" name="city" maxlength="200" required value="{{ stadium.city }}">
+
+                <label>Capacity</label>
+                <input type="number" name="capacity" required value="{{ stadium.capacity }}">
+
+                <label>Home Team</label>
+                <input type="text" name="home_team" maxlength="200" required value="{{ stadium.home_team }}">
+
+                <button type="submit">Update Stadium</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

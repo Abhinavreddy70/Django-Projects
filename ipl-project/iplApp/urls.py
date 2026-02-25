@@ -15,4 +15,7 @@ urlpatterns = [
     path('update-player/<int:id>/',views.update_player,name='update_player'),
     path('delete-player/<int:id>/',views.delete_player,name='delete_player'),
     path('register-stadium/',views.register_stadium,name='register_stadium'),
+    path('stadium-list/',views.stadium_list,name='stadium_list'),
+    path('update-stadium/<int:id>/',views.update_stadium,name='update_stadium'),
+    path('delete-stadium/<int:id>/',views.delete_stadium,name='delete_stadium'),
 ]

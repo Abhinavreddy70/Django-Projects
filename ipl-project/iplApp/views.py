@@ -136,7 +136,7 @@ def delete_player(request,id):
 
 def register_stadium(request):
     if request.method=='POST':
-        form=stadiumForm(request.POST,request.FILES)
+        form=stadiumForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponse("Stadium registered successfully")
@@ -144,3 +144,33 @@ def register_stadium(request):
     else:  
         form=stadiumForm()
     return render(request,'register_stadium.html',{'form':form})
+
+def stadium_list(request):
+    stadiums=stadium.objects.all()  
+    return render(request,'stadium_list.html',{'stadiums':stadiums})
+
+
+def update_stadium(request,id):
+    Stadium=stadium.objects.get(id=id)
+    if request.method=='POST':
+        form=stadiumForm(request.POST,instance=Stadium)
+        if form.is_valid():
+             form.save()
+             return redirect('stadium_list')
+        else:
+             return HttpResponse("Invalid form data",status=400)
+    else:
+        form=stadiumForm(instance=Stadium)
+        return render(request,'update_stadium.html',{'form':form})
+
+
+def delete_stadium(request,id):
+    Stadium=stadium.objects.get(id=id)
+
+    if request=="POST":
+        stadium.delete()
+    return ('Stadium deleted successfully')
+
+    
+
+
