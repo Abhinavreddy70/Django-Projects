@@ -4,7 +4,7 @@ from iplApp import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('register/',views.register,name='register'),
-    path('login/',views.login,name='login'),
+    path('login_page/',views.login,name='login'),
     path('register-franchise/',views.register_franchise,name='register_franchise'),
     path('franchise-list/',views.franchise_list,name='franchise_list'),
     path('franchise-details/<int:id>/',views.franchise_details,name='franchise_details'),
@@ -19,4 +19,5 @@ urlpatterns = [
     path('update-stadium/<int:id>/',views.update_stadium,name='update_stadium'),
     path('delete-stadium/<int:id>/',views.delete_stadium,name='delete_stadium'),
     path('register-user/',views.register_user,name='register_user'),
+    path('login-user/',views.User_login,name='login_user'),
 ]

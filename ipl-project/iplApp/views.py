@@ -2,6 +2,9 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import franchise,Player,stadium
 from .forms import PlayerForm,stadiumForm,UserRegisterForm,ProfileForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib import messages
 # Create your views here.
 def home(request):
     return HttpResponse("Welcome to the IPL App Home Page!")
@@ -192,6 +195,29 @@ def register_user(request):
         user_form=UserRegisterForm()
         profile_form=ProfileForm()
         return render(request,'register_user.html',{'user_form':user_form,'profile_form':profile_form})
+
+
+def User_login(request):
+    if request.method=="POST":
+       login_form=AuthenticationForm(request=request,data=request.POST)
+       if login_form.is_valid():
+        username=login_form.cleaned_data['username']
+        password=login_form.cleaned_data['password']
+        user=authenticate(request,username=username,password=password)
+        if user is not None:
+           
+            auth_login(request, user)
+            messages.success(request,"Login successful!")
+        
+        else:
+           messages.error(request,"Invalid username or password")
+
+    else:
+        login_form = AuthenticationForm()
+
+   
+    return render(request, 'login_user.html',{'login_form':login_form})
+
 
     
 
