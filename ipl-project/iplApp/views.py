@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import franchise,Player,stadium
-from .forms import PlayerForm,stadiumForm
+from .forms import PlayerForm,stadiumForm,UserRegisterForm,ProfileForm
 # Create your views here.
 def home(request):
     return HttpResponse("Welcome to the IPL App Home Page!")
@@ -27,7 +27,8 @@ def login(request):
 
     else:
         return render(request,'login.html')       
-    
+                      
+                      #franchise views
 
 def register_franchise(request):
 
@@ -91,7 +92,8 @@ def delete_franchise(request,id):
       Franchise.delete()
       return redirect('franchise_list')
     
-
+                        
+                        #player views
 
 def register_player(request):
    if request.method=='POST':
@@ -133,13 +135,13 @@ def delete_player(request,id):
       return HttpResponse('Player deleted successfully')
 
 
-
+                       #stadium views
 def register_stadium(request):
     if request.method=='POST':
         form=stadiumForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("Stadium registered successfully")
+            return redirect('stadium_list')
             print()
     else:  
         form=stadiumForm()
@@ -167,9 +169,29 @@ def update_stadium(request,id):
 def delete_stadium(request,id):
     Stadium=stadium.objects.get(id=id)
 
-    if request=="POST":
-        stadium.delete()
-    return ('Stadium deleted successfully')
+    if request.method=="POST":
+        Stadium.delete()
+    return redirect('stadium_list')
+
+                  #user registration view
+def register_user(request):
+    if request.method=="POST":
+         user_form=UserRegisterForm(request.POST)
+         profile_form=ProfileForm(request.POST,request.FILES)
+         if user_form.is_valid() and profile_form.is_valid():
+            #creation of user
+            user=user_form.save(commit=False)
+            user.set_password(user_form.cleaned_data['password'])
+            user.save()
+            #creation of profile
+            Profile=profile_form.save(commit=False)
+            Profile.user=user
+            Profile.save()
+            return HttpResponse("your account has been created successfully! you can now login")
+    else:
+        user_form=UserRegisterForm()
+        profile_form=ProfileForm()
+        return render(request,'register_user.html',{'user_form':user_form,'profile_form':profile_form})
 
     
 
