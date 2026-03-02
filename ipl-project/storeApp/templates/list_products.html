@@ -172,6 +172,7 @@
             </a>
             <a href="{% url 'update_product' product.id %}" class="update-btn">update</a>
             <a href="{% url 'delete_product' product.id %}" class="update-btn">delete</a>
+            <a href="{% url 'list_reviews_by_product' product.id %}" class="update-btn">reviews</a>
         </div>
         {% endfor %}
     </div>

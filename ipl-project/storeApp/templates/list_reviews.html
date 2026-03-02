@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Reviews</title>
+
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background:#ffffff;
+            margin:0;
+            padding:40px 80px;
+        }
+
+        h2{
+            font-size:24px;
+            margin-bottom:20px;
+            border-bottom:1px solid #ddd;
+            padding-bottom:10px;
+        }
+
+        .add-btn{
+            display:inline-block;
+            padding:8px 15px;
+            background:#ffd814;
+            border:1px solid #fcd200;
+            color:#0f1111;
+            text-decoration:none;
+            border-radius:8px;
+            font-size:14px;
+            margin-bottom:25px;
+        }
+
+        .add-btn:hover{
+            background:#f7ca00;
+        }
+
+        .review-card{
+            border-bottom:1px solid #ddd;
+            padding:20px 0;
+        }
+
+        .product-name{
+            font-weight:bold;
+            font-size:15px;
+            margin-bottom:5px;
+        }
+
+        .stars{
+            color:#ffa41c;
+            font-size:16px;
+            font-weight:bold;
+        }
+
+        .review-text{
+            margin-top:8px;
+            font-size:14px;
+            color:#0f1111;
+        }
+
+        .delete-btn{
+            display:inline-block;
+            margin-top:10px;
+            padding:5px 10px;
+            font-size:12px;
+            background:#f0f2f2;
+            border:1px solid #d5d9d9;
+            border-radius:6px;
+            color:#111;
+            text-decoration:none;
+        }
+
+        .delete-btn:hover{
+            background:#e7e9ec;
+        }
+
+        .empty-msg{
+            margin-top:20px;
+            color:#555;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>{% if product %}Reviews for {{ product.name }}{% else %}Customer Reviews{% endif %}</h2>
+
+<a href="{% url 'add_review' %}" class="add-btn">Write a Review</a>
+
+{% for review in reviews %}
+<div class="review-card">
+
+    <div class="product-name">
+        {{ review.product }}
+    </div>
+
+    <div class="stars">
+        {% for i in "12345"|slice:":review.rating"|make_list %}
+            ⭐
+        {% endfor %}
+        {{ review.rating }}/5
+    </div>
+
+    <div class="review-text">
+        {{ review.review }}
+    </div>
+
+    <a href="{% url 'delete_review' review.id %}" class="delete-btn">Delete</a>
+
+</div>
+{% empty %}
+<p class="empty-msg">No customer reviews yet.</p>
+{% endfor %}
+
+</body>
+</html>

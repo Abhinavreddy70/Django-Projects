@@ -17,6 +17,6 @@ class Product(models.Model):
 class reviews(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     review=models.TextField()
-    rating=models.IntegerField()
+    rating=models.DecimalField(max_digits=3, decimal_places=1)
     def __str__(self):
         return self.review
