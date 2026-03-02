@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('iplApp.urls')),
     path('orders/',include('ordersapp.urls')),
+    path('store/',include('storeApp.urls')),
 ] 
 
 if settings.DEBUG:
