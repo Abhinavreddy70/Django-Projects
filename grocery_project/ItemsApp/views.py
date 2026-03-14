@@ -22,5 +22,11 @@ def list_items(request):
     return Response(serializer.data)
 
 
-
- 
+@api_view(['GET'])
+def item_details(request, id):
+    try:
+        grocery_item = Item.objects.get(id=id)
+        serializer = ItemSerializer(grocery_item)
+        return Response(serializer.data)
+    except Item.DoesNotExist:
+        return Response({'error': 'Item not found'}, status=status.HTTP_404_NOT_FOUND)
