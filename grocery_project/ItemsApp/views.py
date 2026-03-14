@@ -46,3 +46,13 @@ def update_item(request,id):
         return Response({'error': 'Item not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
+@api_view(['DELETE'])
+def delete_item(request, id):
+    try:
+        grocery_item = Item.objects.get(pk=id)
+        grocery_item.delete()
+        return Response({'message': 'Item deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+    except Item.DoesNotExist:
+        return Response({'error': 'Item not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
